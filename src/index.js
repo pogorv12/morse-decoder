@@ -35,12 +35,50 @@ const MORSE_TABLE = {
     '---..':  '8',
     '----.':  '9',
     '-----':  '0',
+    '*****':  ' ',
 };
 
 function decode(expr) {
-    // write your solution here
+    
+    let digiStringPointer = 2;
+    let digiString = '';
+    let morzeChar = '';
+    let abcString = '';
+
+    while (digiStringPointer <= expr.length){
+
+        digiString = expr.slice(digiStringPointer - 2, digiStringPointer);
+        
+        switch (digiString) {
+            case '10':
+                morzeChar += '.';
+                break;
+            case '11':
+                morzeChar += '-';
+                break; 
+            case '**':
+                morzeChar += '*';
+                break;            
+            default:
+                break;
+        }
+        
+        if ((digiStringPointer) % 10 === 0) {      
+            abcString += MORSE_TABLE[morzeChar];
+            morzeChar = '';
+        }
+
+        digiStringPointer += 2;
+
+    }
+    return abcString;
+
 }
 
 module.exports = {
     decode
 }
+
+
+
+
